@@ -45,11 +45,19 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Configure your MySQL connection
+import fs from 'fs';
+import path from 'path';
+
 const dbConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: 'mysql-17d7632f-willbotttheman1-de17.h.aivencloud.com',
+  port: 24520,
+  user: 'avnadmin',
+  password: 'AVNS_uXLnLP7o1dyDqxkzUFw',
+  database: 'defaultdb',
+  ssl: {
+    // You will need to download the Aiven CA certificate and provide the path here
+    ca: fs.readFileSync('C:\\Users\\PC\\Downloads\\ca.pem'),
+  },
 };
 
 app.get('/auth/check', (req, res) => {
