@@ -42,7 +42,7 @@ window.addEventListener('load', () => {
 
 window.addEventListener('load', async () => {
     try {
-      const res = await fetch(`http://localhost:3000/auth/check`, {
+      const res = await fetch(`https://looped-analytics-site-rltp.onrender.com/auth/check`, {
         method: 'GET',
         credentials: 'include'  // <--- this sends cookies
       });
@@ -106,7 +106,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     
     // Send data
     try {
-        const response = await fetch('http://localhost:3000/login', {
+        const response = await fetch('https://looped-analytics-site-rltp.onrender.com/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',

@@ -9816,7 +9816,7 @@ document.querySelector('.dropdown-menu a[href="#"]').addEventListener('click', a
   
     try {
       // Call backend logout endpoint (adjust URL and method as needed)
-      const response = await fetch('http://localhost:3000/logout', {
+      const response = await fetch('https://looped-analytics-site-rltp.onrender.com/logout', {
         method: 'POST',
         credentials: 'include', // important to send cookies if session-based
       });
