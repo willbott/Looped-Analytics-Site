@@ -67,7 +67,7 @@ app.get('/auth/check', (req, res) => {
     return res.status(401).json({ error: 'No auth token' });
   }
 
-  const secretKey = "AdminLooped#2025';
+  const secretKey = "AdminLooped#2025";
   try {
     const payload = jwt.verify(token, secretKey);
     // Optionally fetch user info from DB here
