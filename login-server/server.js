@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 
+require('dotenv').config();
+
 // Functions
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -44,10 +46,10 @@ app.use(bodyParser.json());
 
 // Configure your MySQL connection
 const dbConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: 'AdminLooped#2025',
-  database: 'LoopedLtdAccounts',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 };
 
 app.get('/auth/check', (req, res) => {
