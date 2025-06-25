@@ -42,9 +42,20 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// Configure your MySQL connection
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Setup __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Path to ca.pem in the same folder as index.js
+const caPath = path.join(__dirname, 'ca.pem');
+
+// Read the certificate file once
+const ca = fs.readFileSync(caPath);
+console.log('CA certificate loaded successfully.');
 
 const dbConfig = {
   host: 'mysql-17d7632f-willbotttheman1-de17.h.aivencloud.com',
@@ -53,10 +64,11 @@ const dbConfig = {
   password: 'AVNS_uXLnLP7o1dyDqxkzUFw',
   database: 'defaultdb',
   ssl: {
-    // You will need to download the Aiven CA certificate and provide the path here
-    ca: fs.readFileSync('C:\\Users\\PC\\Downloads\\ca.pem'),
+    ca: ca,  // use the cert you loaded above
   },
 };
+
+export default dbConfig;
 
 app.get('/auth/check', (req, res) => {
   const token = req.cookies.auth_token;
