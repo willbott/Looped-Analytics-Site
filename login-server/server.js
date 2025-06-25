@@ -6,8 +6,10 @@ const cors = require('cors');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
 
 // Functions
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Function to hash a password using SHA-256
 function hashPasswordSHA256(password) {
@@ -23,7 +25,7 @@ function verifyPassword(inputPassword, storedHash) {
 const app = express();
 app.use(cookieParser());
 
-const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500'];
+const allowedOrigins = ['https://willbott.github.io'];
 
 app.use(cors({
   origin: function(origin, callback) {
@@ -73,7 +75,7 @@ app.post('/logout', (req, res) => {
   try {
     res.clearCookie('auth_token', {
       httpOnly: true,
-      secure: false,    // Set true if you use HTTPS in production
+      secure: isProduction,    // Set true if you use HTTPS in production
       sameSite: 'lax',
     });
     res.status(200).json({ message: 'Logged out successfully' });
@@ -83,8 +85,14 @@ app.post('/logout', (req, res) => {
   }
 });
 
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10, // limit each IP to 10 login requests per windowMs
+  message: { error: 'Too many login attempts, please try again later.' },
+});
+
 // Login endpoint
-app.post('/login', async (req, res) => {
+app.post('/login', loginLimiter, async (req, res) => {
   const { username, password, rememberMe } = req.body;
 
   if (!username || !password) {
@@ -115,15 +123,15 @@ app.post('/login', async (req, res) => {
     if (match) {
       // User authenticated
       const expiresIn = rememberMe ? '30d' : '2h';
-      const secretKey = process.env.JWT_SECRET || 'AdminLooped#2025';
+      const secretKey = process.env.JWT_SECRET;
       const token = jwt.sign({userId: user.id}, secretKey, {expiresIn});
       
       res.cookie('auth_token', token, {
         httpOnly: true,
-        secure: false, // ⚠️ must be FALSE in local dev
-        maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 2 * 60 * 60 * 1000, // ms
+        secure: isProduction, // ✅ set to true for production
+        maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 2 * 60 * 60 * 1000,
         sameSite: 'lax',
-      });
+      });      
 
       res.json({ message: 'Login successful' });
     } else {
