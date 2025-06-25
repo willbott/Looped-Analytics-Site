@@ -1,0 +1,50 @@
+{
+  "name": "login-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "homepage": "https://willbott.github.io/Looped-Analytics-Site",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+=======
+    "start": "node index.js"
+>>>>>>> 65705940f31869ba9939cfb7851838af7f586589
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.1",
+    "jsonwebtoken": "^9.0.2",
+<<<<<<< HEAD
+    "mysql2": "^3.14.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scripts": "^5.0.1"
+=======
+    "mysql2": "^3.14.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "express-rate-limit": "^6.7.0",
+    "dotenv": "^16.1.4"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1",
+    "gh-pages": "^5.0.0"
+>>>>>>> 65705940f31869ba9939cfb7851838af7f586589
+  }
+}
