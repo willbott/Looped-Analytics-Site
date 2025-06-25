@@ -1,17 +1,15 @@
-const express = require('express');
-const mysql = require('mysql2/promise');
-const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken')
-const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
-
-require('dotenv').config();
+import express from 'express';
+import mysql from 'mysql2/promise';
+import bcrypt from 'bcrypt';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
 
 // Functions
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = true;
 
 // Function to hash a password using SHA-256
 function hashPasswordSHA256(password) {
@@ -69,7 +67,7 @@ app.get('/auth/check', (req, res) => {
     return res.status(401).json({ error: 'No auth token' });
   }
 
-  const secretKey = process.env.JWT_SECRET;
+  const secretKey = "AdminLooped#2025';
   try {
     const payload = jwt.verify(token, secretKey);
     // Optionally fetch user info from DB here
@@ -133,7 +131,7 @@ app.post('/login', loginLimiter, async (req, res) => {
     if (match) {
       // User authenticated
       const expiresIn = rememberMe ? '30d' : '2h';
-      const secretKey = process.env.JWT_SECRET;
+      const secretKey = "AdminLooped#2025";
       const token = jwt.sign({userId: user.id}, secretKey, {expiresIn});
       
       res.cookie('auth_token', token, {
@@ -154,7 +152,7 @@ app.post('/login', loginLimiter, async (req, res) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
