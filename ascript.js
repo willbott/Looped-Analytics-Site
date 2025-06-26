@@ -9382,7 +9382,7 @@ function addGameItem(name, thumbnail, data, datasets = []) {
       console.error('Detail container or content element not found');
       return;
     }
-
+    
     // ✅ Step 1: Clean only dynamic content but preserve canvas if already exists
     const children = [...detailContent.children];
     children.forEach(child => {
@@ -9390,7 +9390,7 @@ function addGameItem(name, thumbnail, data, datasets = []) {
         child.remove();
       }
     });
-    
+  
     // ✅ Step 2: If canvas does not already exist, create it
     let chartCanvas = document.getElementById('analyticsChartDetail');
     if (!chartCanvas) {
@@ -9498,6 +9498,7 @@ function addGameItem(name, thumbnail, data, datasets = []) {
     let currentChartType = 'line'; // Start with line chart
 
     function updateChart(selectedRange, datasetIndex) {
+      console.log("Will Updated 2")
       console.log("Updating chart, existing instance:", detailChartInstance);
       if (detailChartInstance) {
         detailChartInstance.destroy();
