@@ -9382,6 +9382,12 @@ function addGameItem(name, thumbnail, data, datasets = []) {
       console.error('Detail container or content element not found');
       return;
     }
+
+    // Destroy existing Chart instance if it exists
+    if (window.detailChartInstance) {
+      window.detailChartInstance.destroy();
+      window.detailChartInstance = null;
+    }
     
     // ✅ Step 1: Clean only dynamic content but preserve canvas if already exists
     const children = [...detailContent.children];
@@ -9498,7 +9504,7 @@ function addGameItem(name, thumbnail, data, datasets = []) {
     let currentChartType = 'line'; // Start with line chart
 
     function updateChart(selectedRange, datasetIndex) {
-      console.log("Will Updated 2")
+      console.log("Will Updated 3")
       console.log("Updating chart, existing instance:", detailChartInstance);
       if (detailChartInstance) {
         detailChartInstance.destroy();
