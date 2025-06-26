@@ -9386,6 +9386,13 @@ function addGameItem(name, thumbnail, data, datasets = []) {
     // Clear previous content
     detailContent.innerHTML = '';
 
+    // ✅ Recreate the chart canvas element
+    const chartCanvas = document.createElement('canvas');
+    chartCanvas.id = 'analyticsChartDetail';
+    chartCanvas.width = 800;  // Optional
+    chartCanvas.height = 400; // Optional
+    detailContent.appendChild(chartCanvas);
+
     // Show game info
     for (const key in data) {
       const p = document.createElement('p');
@@ -9483,15 +9490,6 @@ function addGameItem(name, thumbnail, data, datasets = []) {
     let currentChartType = 'line'; // Start with line chart
 
     function updateChart(selectedRange, datasetIndex) {
-      // Clear previous content
-      detailContent.innerHTML = '';
-      
-      // Re-add the canvas for Chart.js to render into
-      const canvas = document.createElement('canvas');
-      canvas.id = 'analyticsChartDetail';
-      detailContent.appendChild(canvas);
-
-      console.log("Updated Will")
       console.log("Updating chart, existing instance:", detailChartInstance);
       if (detailChartInstance) {
         detailChartInstance.destroy();
