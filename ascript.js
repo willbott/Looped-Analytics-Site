@@ -9483,7 +9483,15 @@ function addGameItem(name, thumbnail, data, datasets = []) {
     let currentChartType = 'line'; // Start with line chart
 
     function updateChart(selectedRange, datasetIndex) {
-        console.log("Updating chart, existing instance:", detailChartInstance);
+      // Clear previous content
+      detailContent.innerHTML = '';
+      
+      // Re-add the canvas for Chart.js to render into
+      const canvas = document.createElement('canvas');
+      canvas.id = 'analyticsChartDetail';
+      detailContent.appendChild(canvas);
+      
+      console.log("Updating chart, existing instance:", detailChartInstance);
       if (detailChartInstance) {
         detailChartInstance.destroy();
         detailChartInstance = null;
