@@ -9383,6 +9383,8 @@ function addGameItem(name, thumbnail, data, datasets = []) {
       return;
     }
 
+    detailContainer.classList.remove('d-none');
+
     // Destroy existing Chart instance if it exists
     if (window.detailChartInstance) {
       window.detailChartInstance.destroy();
