@@ -9383,16 +9383,24 @@ function addGameItem(name, thumbnail, data, datasets = []) {
       return;
     }
 
-    // Clear previous content
-    detailContent.innerHTML = '';
-
-    // ✅ Recreate the chart canvas element
-    const chartCanvas = document.createElement('canvas');
-    chartCanvas.id = 'analyticsChartDetail';
-    chartCanvas.width = 800;  // Optional
-    chartCanvas.height = 400; // Optional
-    detailContent.appendChild(chartCanvas);
-
+    // ✅ Step 1: Clean only dynamic content but preserve canvas if already exists
+    const children = [...detailContent.children];
+    children.forEach(child => {
+      if (child.id !== 'analyticsChartDetail') {
+        child.remove();
+      }
+    });
+    
+    // ✅ Step 2: If canvas does not already exist, create it
+    let chartCanvas = document.getElementById('analyticsChartDetail');
+    if (!chartCanvas) {
+      chartCanvas = document.createElement('canvas');
+      chartCanvas.id = 'analyticsChartDetail';
+      chartCanvas.width = 800;
+      chartCanvas.height = 400;
+      detailContent.appendChild(chartCanvas);
+    }
+    
     // Show game info
     for (const key in data) {
       const p = document.createElement('p');
