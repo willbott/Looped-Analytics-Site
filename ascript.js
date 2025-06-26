@@ -9490,7 +9490,8 @@ function addGameItem(name, thumbnail, data, datasets = []) {
       const canvas = document.createElement('canvas');
       canvas.id = 'analyticsChartDetail';
       detailContent.appendChild(canvas);
-      
+
+      console.log("Updated Will")
       console.log("Updating chart, existing instance:", detailChartInstance);
       if (detailChartInstance) {
         detailChartInstance.destroy();
